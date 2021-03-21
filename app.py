@@ -26,11 +26,13 @@ def fileUpload():
         os.mkdir(target)
     
     file = request.files['file']
+    print
     # destination = "/".join([target, file.filename])
     destination = os.path.join(target, file.filename)
     file.save(destination)
     location = "http://localhost:5000/file/" + file.filename
-    return {"location": location}
+    return {"location": location, "name": file.filename, "size": "500"}
+    # return {"location": location}
 
 @app.route('/pdf', methods=['POST'])
 def generatePDF():
@@ -48,3 +50,4 @@ def generatePDF():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # app.run(debug=True, ssl_context="adhoc")
